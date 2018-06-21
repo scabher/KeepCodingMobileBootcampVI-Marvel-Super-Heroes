@@ -1,5 +1,8 @@
 package com.scabher.marvelheroes.presentation.heroeslist
 
+import android.arch.lifecycle.Observer
+import android.arch.lifecycle.ViewModelProvider
+import android.arch.lifecycle.ViewModelProviders
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.widget.DefaultItemAnimator
@@ -21,7 +24,11 @@ class HeroesListActivity : AppCompatActivity(), HeroesListContract.View {
     lateinit var navigator: Navigator
 
     @Inject
-    lateinit var presenter: HeroesListPresenter
+    lateinit var viewModelFactory: ViewModelProvider.Factory
+
+    @Inject
+    // lateinit var presenter: HeroesListPresenter
+    lateinit var heroesListViewModel: HeroesListViewModel
 
     lateinit var adapter: HeroesListAdapter
 
@@ -29,7 +36,8 @@ class HeroesListActivity : AppCompatActivity(), HeroesListContract.View {
         inject()
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        setUp()
+        setUpRecycler()
+        setUpViewModel()
     }
 
     fun inject() {
@@ -40,16 +48,31 @@ class HeroesListActivity : AppCompatActivity(), HeroesListContract.View {
                 .inject(this)
     }
 
-    private fun setUp() {
-        setUpRecycler()
-        presenter.loadMarvelHeroes()
-    }
-
     private fun setUpRecycler() {
         adapter = HeroesListAdapter { hero, image -> goToHeroDetail(hero, image) }
         heroesListRecycler.layoutManager = GridLayoutManager(this, 2, GridLayoutManager.VERTICAL, false)
         heroesListRecycler.itemAnimator = DefaultItemAnimator()
         heroesListRecycler.adapter = adapter
+    }
+
+    private fun setUpViewModel() {
+        heroesListViewModel = ViewModelProviders.of(this, viewModelFactory).get(HeroesListViewModel::class.java)
+        bindEvents()
+        heroesListViewModel.loadMarvelHeroes()
+    }
+
+    private fun bindEvents() {
+        heroesListViewModel.isLoadingState.observe(this, Observer { isLoading ->
+            isLoading?.let {
+                showLoading(it)
+            }
+        })
+
+        heroesListViewModel.userListState.observe(this, Observer { userList ->
+            userList?.let {
+                showHeroesList(it)
+            }
+        })
     }
 
     private fun goToHeroDetail(hero: MarvelHeroEntity, image: View) {
@@ -62,11 +85,6 @@ class HeroesListActivity : AppCompatActivity(), HeroesListContract.View {
 
     override fun showHeroesList(heroes: List<MarvelHeroEntity>) {
         adapter.swapData(heroes)
-    }
-
-    override fun onDestroy() {
-        presenter.destroy()
-        super.onDestroy()
     }
 
     override fun showError(message: String) {

@@ -10,8 +10,8 @@ import android.support.v7.widget.GridLayoutManager
 import android.view.View
 import android.widget.Toast
 import com.scabher.marvelheroes.R
-import com.scabher.marvelheroes.di.components.DaggerGetMarvelHeroesListComponent
-import com.scabher.marvelheroes.di.modules.GetMarvelHeroesListModule
+//import com.scabher.marvelheroes.di.components.DaggerGetMarvelHeroesListComponent
+//import com.scabher.marvelheroes.di.modules.GetMarvelHeroesListModule
 import com.scabher.marvelheroes.domain.model.MarvelHeroEntity
 import com.scabher.marvelheroes.presentation.MainApp
 import com.scabher.marvelheroes.presentation.util.Navigator
@@ -41,11 +41,12 @@ class HeroesListActivity : AppCompatActivity(), HeroesListContract.View {
     }
 
     fun inject() {
-        DaggerGetMarvelHeroesListComponent.builder()
-                .applicationComponent((application as MainApp).component)
-                .getMarvelHeroesListModule(GetMarvelHeroesListModule(this))
-                .build()
-                .inject(this)
+//        DaggerGetMarvelHeroesListComponent.builder()
+//                .applicationComponent((application as MainApp).component)
+//                .getMarvelHeroesListModule(GetMarvelHeroesListModule(this))
+//                .build()
+//                .inject(this)
+        (application as MainApp).component.inject(this)
     }
 
     private fun setUpRecycler() {
@@ -68,7 +69,7 @@ class HeroesListActivity : AppCompatActivity(), HeroesListContract.View {
             }
         })
 
-        heroesListViewModel.userListState.observe(this, Observer { userList ->
+        heroesListViewModel.heroListState.observe(this, Observer { userList ->
             userList?.let {
                 showHeroesList(it)
             }

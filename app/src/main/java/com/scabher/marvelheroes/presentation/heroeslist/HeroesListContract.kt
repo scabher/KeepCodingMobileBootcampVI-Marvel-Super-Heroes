@@ -1,8 +1,6 @@
 package com.scabher.marvelheroes.presentation.heroeslist
 
 import com.scabher.marvelheroes.domain.model.MarvelHeroEntity
-import com.scabher.marvelheroes.presentation.base.BasePresenter
-import com.scabher.marvelheroes.presentation.base.BaseViewModel
 
 /**
  * Created by costular on 17/03/2018.
@@ -21,16 +19,11 @@ interface HeroesListContract {
 
     }
 
-    interface Presenter : BasePresenter {
-
-        fun loadMarvelHeroes()
-
-    }
-
-    interface ViewModel : BaseViewModel {
-
-        fun loadMarvelHeroes()
-
-    }
+//
+//    interface ViewModel : BaseViewModel {
+//
+//        fun loadMarvelHeroes()
+//
+//    }
 
 }

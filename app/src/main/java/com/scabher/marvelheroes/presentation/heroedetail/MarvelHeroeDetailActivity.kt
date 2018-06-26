@@ -1,5 +1,6 @@
 package com.scabher.marvelheroes.presentation.heroedetail
 
+import android.arch.lifecycle.ViewModelProviders
 import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
@@ -23,6 +24,9 @@ class MarvelHeroeDetailActivity : AppCompatActivity() {
         const val PARAM_HEROE = "heroe"
     }
 
+    lateinit var heroDetailViewModel: MarvelHeroeDetailViewModel
+    var hero: MarvelHeroEntity? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_hero_detail)
@@ -32,7 +36,9 @@ class MarvelHeroeDetailActivity : AppCompatActivity() {
         }
         supportPostponeEnterTransition() // Wait for image load and then draw the animation
 
-        val hero: MarvelHeroEntity? = intent?.extras?.getParcelable(PARAM_HEROE)
+        heroDetailViewModel = ViewModelProviders.of(this).get(MarvelHeroeDetailViewModel::class.java)
+
+        hero = intent?.extras?.getParcelable(PARAM_HEROE)
         hero?.let { fillHeroData(it) }
     }
 

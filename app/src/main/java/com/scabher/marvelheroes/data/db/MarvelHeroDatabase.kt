@@ -9,4 +9,5 @@ abstract class MarvelHeroDatabase: RoomDatabase() {
 
     abstract fun getMarvelHeroDao(): MarvelHeroDao
 
+    abstract fun getFavoriteHeroDao(): FavoriteHeroDao
 }

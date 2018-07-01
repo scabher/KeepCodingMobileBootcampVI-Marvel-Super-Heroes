@@ -7,6 +7,7 @@ import com.scabher.marvelheroes.data.repository.datasource.RemoteMarvelHeroesDat
 import com.nhaarman.mockito_kotlin.mock
 import com.nhaarman.mockito_kotlin.verify
 import com.nhaarman.mockito_kotlin.whenever
+import io.reactivex.Flowable
 import io.reactivex.Observable
 import org.junit.Before
 import org.junit.Test
@@ -30,8 +31,8 @@ class MarvelHeroesRepositoryTest {
     @Test
     fun `repository should retrieve marvel heroes list`() {
         val heroes = listOf(MarvelHero("Iron Man"), MarvelHero("Spider-Man"))
-        val observable = Observable.just(heroes)
-        whenever(mockRemoteDataSource.getMarvelHeroesList()).thenReturn(observable)
+        val flowable = Flowable.just(heroes)
+        whenever(mockRemoteDataSource.getMarvelHeroesList()).thenReturn(flowable)
 
         val result = marvelHeroesRepository.getMarvelHeroesList()
 

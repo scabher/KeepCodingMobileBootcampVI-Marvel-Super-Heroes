@@ -27,7 +27,6 @@ class HeroesListActivity : AppCompatActivity(), HeroesListContract.View {
     lateinit var viewModelFactory: ViewModelProvider.Factory
 
     @Inject
-    // lateinit var presenter: HeroesListPresenter
     lateinit var heroesListViewModel: HeroesListViewModel
 
     lateinit var adapter: HeroesListAdapter
@@ -41,11 +40,6 @@ class HeroesListActivity : AppCompatActivity(), HeroesListContract.View {
     }
 
     fun inject() {
-//        DaggerGetMarvelHeroesListComponent.builder()
-//                .applicationComponent((application as MainApp).component)
-//                .getMarvelHeroesListModule(GetMarvelHeroesListModule(this))
-//                .build()
-//                .inject(this)
         (application as MainApp).component.inject(this)
     }
 

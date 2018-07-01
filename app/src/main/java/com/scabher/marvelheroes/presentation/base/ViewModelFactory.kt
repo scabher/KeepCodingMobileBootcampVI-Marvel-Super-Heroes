@@ -2,6 +2,7 @@ package com.scabher.marvelheroes.presentation.base
 
 import android.arch.lifecycle.ViewModel
 import android.arch.lifecycle.ViewModelProvider
+import com.scabher.marvelheroes.presentation.heroedetail.MarvelHeroeDetailViewModel
 import com.scabher.marvelheroes.presentation.heroeslist.HeroesListViewModel
 import dagger.Binds
 import dagger.MapKey
@@ -36,4 +37,8 @@ abstract class ViewModelModule {
     @ViewModelKey(HeroesListViewModel::class)
     internal abstract fun postListViewModel(heroesListViewModel: HeroesListViewModel): ViewModel
 
+    @Binds
+    @IntoMap
+    @ViewModelKey(MarvelHeroeDetailViewModel::class)
+    internal abstract fun postDetailViewModel(viewModel: MarvelHeroeDetailViewModel): ViewModel
 }

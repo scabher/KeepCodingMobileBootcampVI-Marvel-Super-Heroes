@@ -16,11 +16,12 @@ data class MarvelHeroEntity(
         @PrimaryKey(autoGenerate = true)
         val id: Long,
         val name: String = "",
-        val photoUrl: String,
+        val photoUrl: String = "",
         val realName: String = "",
         val height: String = "",
         val power: String = "",
         val abilities: String = "",
-        val ifFavorite: Boolean = false,
-        val groups: Array<String> = arrayOf<String>()
-) : Parcelable
+        var isFavorite: Boolean = false,
+        val groups: String = ""
+        // val groups: Array<String> = arrayOf<String>()
+): Parcelable

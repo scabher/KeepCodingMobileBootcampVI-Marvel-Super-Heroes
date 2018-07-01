@@ -13,6 +13,6 @@ import kotlinx.android.parcel.Parcelize
 data class FavoriteHeroEntity (
     @PrimaryKey(autoGenerate = true)
     val id: Long,
-    val heroId: Long
-) : Parcelable
+    val heroName: String
+): Parcelable
 

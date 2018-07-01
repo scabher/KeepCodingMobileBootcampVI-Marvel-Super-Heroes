@@ -18,12 +18,4 @@ interface HeroesListContract {
         fun showError(messageRes: Int)
 
     }
-
-//
-//    interface ViewModel : BaseViewModel {
-//
-//        fun loadMarvelHeroes()
-//
-//    }
-
 }

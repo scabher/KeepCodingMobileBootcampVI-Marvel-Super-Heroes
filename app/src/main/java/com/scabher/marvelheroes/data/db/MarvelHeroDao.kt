@@ -16,6 +16,9 @@ abstract class MarvelHeroDao {
     @Query("DELETE FROM marvelheroes")
     abstract fun deleteAllMarvelHeroes()
 
+    @Query("SELECT * FROM marvelheroes WHERE name = :heroName")
+    abstract fun getMarvelHero(heroName: String): Maybe<MarvelHeroEntity>
+
     @Transaction
     open fun removeAndInsertMarvelHeroes(heroes: List<MarvelHeroEntity>) {
         deleteAllMarvelHeroes()

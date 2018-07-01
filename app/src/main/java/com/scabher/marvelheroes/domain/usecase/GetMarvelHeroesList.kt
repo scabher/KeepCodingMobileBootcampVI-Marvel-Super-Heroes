@@ -2,7 +2,7 @@ package com.scabher.marvelheroes.domain.usecase
 
 import com.scabher.marvelheroes.data.repository.MarvelHeroesRepositoryImpl
 import com.scabher.marvelheroes.domain.model.MarvelHeroEntity
-import io.reactivex.Observable
+import io.reactivex.Flowable
 import javax.inject.Inject
 
 /**
@@ -11,7 +11,7 @@ import javax.inject.Inject
 class GetMarvelHeroesList @Inject constructor(val marvelHeroesRepositoryImpl: MarvelHeroesRepositoryImpl)
     : UseCase<List<MarvelHeroEntity>>() {
 
-    override fun buildCase(): Observable<List<MarvelHeroEntity>> =
+    override fun buildCase(): Flowable<List<MarvelHeroEntity>> =
             marvelHeroesRepositoryImpl.getMarvelHeroesList()
 
 }
